@@ -75,6 +75,7 @@ public class RNJitsiMeetModule extends ReactContextBaseJavaModule {
 //                            .setFeatureFlag("meeting-name.enabled", false)
                             .setFeatureFlag("meeting-password.enabled", false)
                             .setFeatureFlag("recording.enabled", false)
+                            .setWelcomePageEnabled(false)
 //                            .setFeatureFlag("invite.enabled", false)
                             .build();      
                     mJitsiMeetViewReference.getJitsiMeetView().join(options);
@@ -123,6 +124,11 @@ public class RNJitsiMeetModule extends ReactContextBaseJavaModule {
             public void run() {
                 if (mJitsiMeetViewReference.getJitsiMeetView() != null) {
                     mJitsiMeetViewReference.getJitsiMeetView().leave();
+                    try {
+                        mJitsiMeetViewReference.getJitsiMeetView().dispose();
+                    } catch (Exception e) {
+                        //TODO: handle exception
+                    }
                 }
             }
         });
